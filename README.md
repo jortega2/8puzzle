@@ -1,6 +1,7 @@
 # Introduction
 The program will take a starting state of the 8puzzle game and output a sequence of moves that lead to a solved/completed state, if solvable. To accomplish this, 
 the program will implement two different algorithms: Uniform Cost Search and A* search. Furthmore, A* search will use two different heurisitcs: Misplaced Tile and Eucledean Distance.
+![puzzle](/images/8puzz.png)
 
 # Classes
 **Problem:**\
