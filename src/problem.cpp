@@ -1,13 +1,13 @@
 #include "../header/problem.h"
 
-Problem::Problem(std::string **initial_state, std::string **final_state){
+Problem::Problem(std::vector<std::vector<std::string>> initial_state, std::vector<std::vector<std::string>> final_state){
 	this->initial_state = initial_state;
 	this->final_state = final_state;
 }
 
 Problem::~Problem(){
-	delete initial_state;
-	delete final_state;
+	/*delete initial_state;
+	delete final_state;*/
 }
 
 Node *Problem::childNode(Node *parent, action a){//create a node from a certain action/operator
@@ -15,14 +15,11 @@ Node *Problem::childNode(Node *parent, action a){//create a node from a certain 
 	int x = 0;
 	int y = 0;
 	int size = parent->getSize();
-	//std::string **state = parent->getState();
 
-	std::string **state = nullptr;
-	memcpy(state, parent->getState(), parent->getSize());
-	
+	std::vector<std::vector<std::string>> state = parent->getState();
+
 	for (int i = 0; i < size; i++){
 		for (int j = 0; j < size; j++){
-			//std::cout << "made it this far\n";
 			if (state[i][j] == "*"){
 				x = i;
 				y = j;

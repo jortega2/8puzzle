@@ -1,6 +1,6 @@
 #include "../header/node.h"
 
-Node::Node(std::string **state, int size, int cost, std::string action, Node * parent){
+Node::Node(std::vector<std::vector<std::string>> state, int size, int cost, std::string action, Node * parent){
 	//constructor to be used my majority of nodes
 	//takes an array of chars to represent the state,
 	//an integer representing the size of the game (e.g. 8puzzle, 15puzzle...)
@@ -12,7 +12,7 @@ Node::Node(std::string **state, int size, int cost, std::string action, Node * p
 	this->parentPtr = parent;
 }
 
-Node::Node(std::string **state, int size, int cost){
+Node::Node(std::vector<std::vector<std::string>> state, int size, int cost){
 	//this constructor should only be used when creating the initial state
 	//same as the other constructor except does not point to a parent
 	this->size = size;
@@ -24,10 +24,10 @@ Node::Node(std::string **state, int size, int cost){
 
 Node::~Node(){
 	//delete dynamic array to free up memory
-	for (int i = 0; i < size; i++){
+	/*for (int i = 0; i < size; i++){
 		delete[] state[i];
 	}
-	delete[] state;
+	delete[] state;*/
 }
 
 Node *Node::getParent(){
@@ -42,7 +42,7 @@ int Node::getSize(){
 	return size;
 }
 
-std::string **Node::getState(){
+std::vector<std::vector<std::string>> Node::getState(){
 	return state;
 }
 

@@ -8,10 +8,10 @@ enum action {up, right, down, left};
 
 class Problem {
 private:
-	std::string **initial_state;
-	std::string **final_state;
+	std::vector<std::vector<std::string>> initial_state;
+	std::vector<std::vector<std::string>> final_state;
 public:
-	Problem(std::string **initial_state, std::string **final_state);
+	Problem(std::vector<std::vector<std::string>> initial_state, std::vector<std::vector<std::string>> inal_state);
 	~Problem();
 	Node *childNode(Node *parent, action a);
 	int step_cost(Node *parent);
