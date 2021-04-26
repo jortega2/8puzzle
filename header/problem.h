@@ -13,10 +13,10 @@ private:
 public:
 	Problem(std::vector<std::vector<std::string>> initial_state, std::vector<std::vector<std::string>> final_state);
 	~Problem();
-	Node *childNode(Node *parent, action a);
-	std::vector<std::vector<std::string>> makeState(action a, Node *parent);
+	Node *childNode(Node *parent, int op);
+	std::vector<std::vector<std::string>> makeState(int op, Node *parent);
 	int step_cost(Node *parent);
-	bool is_valid(Node *node, action a);
+	bool is_valid(Node *node, int op);
 	bool goal_test(Node *node);
 };
 

@@ -10,6 +10,7 @@ private:
 	int cost;
 	int size;
 	std::string action;
+	std::string stringToHash;
 	std::vector<std::vector<std::string>> state;
 	Node *parentPtr;
 public:
@@ -17,12 +18,14 @@ public:
 	Node(std::vector<std::vector<std::string>> state, int size);
 	~Node();
 	Node *getParent();
-	int getCost();
+	int getCost() const;
 	int getSize();
+	std::string getStringToHash();
 	std::vector<std::vector<std::string>> getState();
 	void showState();
-	bool operator<( Node & b);
-	bool operator>( Node & b);
+	bool operator<( const Node & b) const;
+	bool operator>( Node & b) const;
+	bool operator==( Node & b) const;
 };
 
 #endif

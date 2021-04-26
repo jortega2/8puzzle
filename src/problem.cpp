@@ -10,21 +10,25 @@ Problem::~Problem(){
 	delete final_state;*/
 }
 
-Node *Problem::childNode(Node *parent, action a){//create a node from a certain action/operator
+Node *Problem::childNode(Node *parent, int op){//create a node from a certain action/operator
 	Node *child;
+	//1. Move blank space up
+	//2. Move blank space down
+	//3. Move blank space left
+	//4. Move blank space right
 
-	switch (a){
-		case up : 
-			child = new Node(makeState(a, parent), parent->getSize(), "Move * up", parent);
+	switch (op){
+		case 1 : 
+			child = new Node(makeState(1, parent), parent->getSize(), "Move * up", parent);
 			break;
-		case down :
-			child = new Node(makeState(a, parent), parent->getSize(), "Move * down", parent);
+		case 2 :
+			child = new Node(makeState(2, parent), parent->getSize(), "Move * down", parent);
 			break;
-		case left :
-			child = new Node(makeState(a, parent), parent->getSize(), "Move * left", parent);
+		case 3 :
+			child = new Node(makeState(3, parent), parent->getSize(), "Move * left", parent);
 			break;
-		case right :
-			child = new Node(makeState(a, parent), parent->getSize(), "Move * right", parent);
+		case 4 :
+			child = new Node(makeState(4, parent), parent->getSize(), "Move * right", parent);
 			break;
 		default:
 			std::cout << "Error occurred in childNode (Node creaetion)\n";
@@ -34,7 +38,7 @@ Node *Problem::childNode(Node *parent, action a){//create a node from a certain 
 	return child;
 }
 
-std::vector<std::vector<std::string>> Problem::makeState(action a, Node *parent){
+std::vector<std::vector<std::string>> Problem::makeState(int op, Node *parent){
 	//find empty space '*'
 	int x = 0;
 	int y = 0;
@@ -52,20 +56,20 @@ std::vector<std::vector<std::string>> Problem::makeState(action a, Node *parent)
 	}
 	//create the next state depending on the action(operator) given.
 	//Essentially just swapping the empty space with another tile.
-	switch (a){
-		case up :
+	switch (op){
+		case 1 :
 			state[x][y] = state[x-1][y];
 			state[x-1][y] = "*";
 			break;
-		case down :
+		case 2 :
 			state[x][y] = state[x+1][y];
 			state[x+1][y] = "*";
 			break;
-		case left :
+		case 3 :
 			state[x][y] = state [x][y-1];
 			state[x][y-1] = "*";
 			break;
-		case right :
+		case 4 :
 			state[x][y] = state[x][y+1];
 			state[x][y+1] = "*";
 			break;
@@ -82,7 +86,7 @@ int Problem::step_cost(Node *parent){
 	return 0;
 }
 
-bool Problem::is_valid(Node *node, action a){
+bool Problem::is_valid(Node *node, int op){
 	//checks if the use of an operator/action is valid.
 	//e.g. don't want to index an out of bounds vector
 	//find empty space '*'
@@ -102,23 +106,23 @@ bool Problem::is_valid(Node *node, action a){
 		}
 	}
 
-	switch (a){
-		case up :
+	switch (op){
+		case 1 :
 			if (x == 0){
 				isIt = false;
 			}
 			break;
-		case down :
+		case 2 :
 			if (x == size-1){
 				isIt = false;
 			}
 			break;
-		case left :
+		case 3 :
 			if (y == 0){
 				isIt = false;
 			}
 			break;
-		case right :
+		case 4 :
 			if (y == size-1){
 				isIt = false;
 			}

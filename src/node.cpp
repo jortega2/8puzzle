@@ -10,6 +10,11 @@ Node::Node(std::vector<std::vector<std::string>> state, int size, std::string ac
 	this->action = action;
 	this->state = state;
 	this->parentPtr = parent;
+	for (int i = 0; i < size; i++){
+		for (int j = 0; j < size; j++){
+			this->stringToHash += state[i][j];
+		}
+	}
 }
 
 Node::Node(std::vector<std::vector<std::string>> state, int size){
@@ -20,6 +25,11 @@ Node::Node(std::vector<std::vector<std::string>> state, int size){
 	this->action = "";
 	this->state = state;
 	this->parentPtr = nullptr;
+	for (int i = 0; i < size; i++){
+		for (int j = 0; j < size; j++){
+			this->stringToHash += state[i][j];
+		}
+	}
 }
 
 Node::~Node(){
@@ -34,12 +44,16 @@ Node *Node::getParent(){
 	return parentPtr;
 }
 
-int Node::getCost(){
+int Node::getCost() const {
 	return cost;
 }
 
 int Node::getSize(){
 	return size;
+}
+
+std::string Node::getStringToHash(){
+	return stringToHash;
 }
 
 std::vector<std::vector<std::string>> Node::getState(){
@@ -55,10 +69,17 @@ void Node::showState(){
 	}
 }
 
-bool Node::operator<( Node & b){
+bool Node::operator<( const Node & b) const{
+	std::cout << "le\n";
 	return cost < b.getCost();
 }
 
-bool Node::operator>( Node & b){
+bool Node::operator>( Node & b) const {
+	std::cout << "ge\n";
 	return cost > b.getCost();
+}
+
+bool Node::operator==( Node & b) const {
+	std::cout << "eq\n";
+	return cost == b.getCost();
 }
