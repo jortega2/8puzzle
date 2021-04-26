@@ -56,7 +56,7 @@ std::string Node::getStringToHash(){
 	return stringToHash;
 }
 
-std::vector<std::vector<std::string>> Node::getState(){
+std::vector<std::vector<std::string>> Node::getState() const{
 	return state;
 }
 
@@ -70,16 +70,16 @@ void Node::showState(){
 }
 
 bool Node::operator<( const Node & b) const{
-	std::cout << "le\n";
+	//std::cout << "le\n";
 	return cost < b.getCost();
 }
 
-bool Node::operator>( Node & b) const {
-	std::cout << "ge\n";
+bool Node::operator>( const Node & b) const {
+	//std::cout << "ge\n";
 	return cost > b.getCost();
 }
 
-bool Node::operator==( Node & b) const {
-	std::cout << "eq\n";
-	return cost == b.getCost();
+bool Node::operator==( const Node & b) const {
+	//std::cout << "eq\n";
+	return state == b.getState();
 }

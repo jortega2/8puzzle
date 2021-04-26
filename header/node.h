@@ -21,11 +21,11 @@ public:
 	int getCost() const;
 	int getSize();
 	std::string getStringToHash();
-	std::vector<std::vector<std::string>> getState();
+	std::vector<std::vector<std::string>> getState() const;
 	void showState();
 	bool operator<( const Node & b) const;
-	bool operator>( Node & b) const;
-	bool operator==( Node & b) const;
+	bool operator>( const Node & b) const;
+	bool operator==( const Node & b) const;
 };
 
 #endif

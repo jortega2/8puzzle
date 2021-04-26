@@ -17,7 +17,7 @@ public:
 	std::vector<std::vector<std::string>> makeState(int op, Node *parent);
 	int step_cost(Node *parent);
 	bool is_valid(Node *node, int op);
-	bool goal_test(Node *node);
+	bool goal_test(Node * node);
 };
 
 #endif
