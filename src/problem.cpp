@@ -1,4 +1,5 @@
 #include "../header/problem.h"
+#include <cmath>
 
 Problem::Problem(std::vector<std::vector<std::string>> initial_state, std::vector<std::vector<std::string>> final_state){
 	this->initial_state = initial_state;
@@ -81,9 +82,41 @@ std::vector<std::vector<std::string>> Problem::makeState(int op, Node *parent){
 	return state;
 }
 
-int Problem::step_cost(Node *parent){
-	//calcualte the cost of a newly created node. heuristic cost/h(n)???
-	return 0;
+void Problem::misplacedTile(Node *node){
+	double cost = 0;
+	int size = node->getSize();
+	std::vector<std::vector<std::string>> state = node->getState();
+
+	for (int i = 0; i < size; i++){
+		for (int j = 0; j < size; j++){
+			if (state[i][j] != "*"){
+				if (state[i][j] != final_state[i][j]){
+					cost++;
+				}
+			}
+		}
+	}	
+	node->setCost(cost);
+}
+
+void Problem::euclideanDistance(Node *node){
+	double cost  = 0;
+	int size = node->getSize();
+	std::vector<std::vector<std::string>> state = node->getState();
+
+	for (int i = 0; i < size; i++){
+		for (int j = 0; j < size; j++){
+			for (int x = 0; x < size; x++){
+				for (int y = 0; y < size; y++){
+					if (state[i][j] == final_state[x][y]){
+						cost += sqrt(pow((i-x),2)+pow((j-y),2));
+					}
+				}
+			}
+		}
+	}	
+	node->setCost(cost);
+
 }
 
 bool Problem::is_valid(Node *node, int op){

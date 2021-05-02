@@ -6,7 +6,8 @@ Node::Node(std::vector<std::vector<std::string>> state, int size, std::string ac
 	//an integer representing the size of the game (e.g. 8puzzle, 15puzzle...)
 	//and a Node pointer that points to the parent
 	this->size = size;
-	this->cost = parent->cost + 1;
+	this->depth = parent->depth + 1;
+	this->cost = 0;
 	this->action = action;
 	this->state = state;
 	this->parentPtr = parent;
@@ -21,6 +22,7 @@ Node::Node(std::vector<std::vector<std::string>> state, int size){
 	//this constructor should only be used when creating the initial state
 	//same as the other constructor except does not point to a parent
 	this->size = size;
+	this->depth = 0;
 	this->cost = 0;//no parent, so node is the root, cost is 0
 	this->action = "";
 	this->state = state;
@@ -44,8 +46,8 @@ Node *Node::getParent(){
 	return parentPtr;
 }
 
-int Node::getCost() const {
-	return cost;
+double Node::getCost() const {
+	return (cost + depth);
 }
 
 int Node::getSize(){
@@ -60,6 +62,12 @@ std::vector<std::vector<std::string>> Node::getState() const{
 	return state;
 }
 
+void Node::setCost(double c){
+	//h(n) modification
+	//g(n) was calculated in the constructor, now just adding h(n) which is c. 
+	this->cost = c;
+}
+
 void Node::showState(){
 	for (int i = 0; i < size; i++){
 		for ( int j = 0; j < size; j++){
@@ -71,12 +79,12 @@ void Node::showState(){
 
 bool Node::operator<( const Node & b) const{
 	//std::cout << "le\n";
-	return cost < b.getCost();
+	return this->getCost() < b.getCost();
 }
 
 bool Node::operator>( const Node & b) const {
 	//std::cout << "ge\n";
-	return cost > b.getCost();
+	return this->getCost() > b.getCost();
 }
 
 bool Node::operator==( const Node & b) const {
