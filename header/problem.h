@@ -5,7 +5,6 @@
 
 enum action {up, right, down, left, last};
 
-
 class Problem {
 private:
 	std::vector<std::vector<std::string>> initial_state;
@@ -15,7 +14,8 @@ public:
 	~Problem();
 	Node *childNode(Node *parent, int op);
 	std::vector<std::vector<std::string>> makeState(int op, Node *parent);
-	int step_cost(Node *parent);
+	void misplacedTile(Node *node);
+	void euclideanDistance(Node *node);
 	bool is_valid(Node *node, int op);
 	bool goal_test(Node * node);
 };

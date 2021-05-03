@@ -6,10 +6,7 @@ Problem::Problem(std::vector<std::vector<std::string>> initial_state, std::vecto
 	this->final_state = final_state;
 }
 
-Problem::~Problem(){
-	/*delete initial_state;
-	delete final_state;*/
-}
+Problem::~Problem(){}
 
 Node *Problem::childNode(Node *parent, int op){//create a node from a certain action/operator
 	Node *child;

@@ -6,8 +6,8 @@ Node::Node(std::vector<std::vector<std::string>> state, int size, std::string ac
 	//an integer representing the size of the game (e.g. 8puzzle, 15puzzle...)
 	//and a Node pointer that points to the parent
 	this->size = size;
-	this->depth = parent->depth + 1;
-	this->cost = 0;
+	this->Gn = parent->Gn + 1;
+	this->Hn = 0;
 	this->action = action;
 	this->state = state;
 	this->parentPtr = parent;
@@ -22,8 +22,8 @@ Node::Node(std::vector<std::vector<std::string>> state, int size){
 	//this constructor should only be used when creating the initial state
 	//same as the other constructor except does not point to a parent
 	this->size = size;
-	this->depth = 0;
-	this->cost = 0;//no parent, so node is the root, cost is 0
+	this->Gn = 0;
+	this->Hn = 0;//no parent, so node is the root, h(n) is 0
 	this->action = "";
 	this->state = state;
 	this->parentPtr = nullptr;
@@ -34,20 +34,21 @@ Node::Node(std::vector<std::vector<std::string>> state, int size){
 	}
 }
 
-Node::~Node(){
-	//delete dynamic array to free up memory
-	/*for (int i = 0; i < size; i++){
-		delete[] state[i];
-	}
-	delete[] state;*/
-}
+Node::~Node(){}
 
 Node *Node::getParent(){
 	return parentPtr;
 }
+int Node::getGn() const {
+	return Gn;
+}
+
+double Node::getHn() const {
+	return (int)Hn;
+}
 
 double Node::getCost() const {
-	return (cost + depth);
+	return (Gn + Hn);
 }
 
 int Node::getSize(){
@@ -64,11 +65,11 @@ std::vector<std::vector<std::string>> Node::getState() const{
 
 void Node::setCost(double c){
 	//h(n) modification
-	//g(n) was calculated in the constructor, now just adding h(n) which is c. 
-	this->cost = c;
+	this->Hn = c;
 }
 
 void Node::showState(){
+	//display the state
 	for (int i = 0; i < size; i++){
 		for ( int j = 0; j < size; j++){
 			std::cout << state[i][j] << ' ';
@@ -78,16 +79,19 @@ void Node::showState(){
 }
 
 bool Node::operator<( const Node & b) const{
-	//std::cout << "le\n";
+	//override the < opeartor to for Node objects
+	//returns true/false depending on the costs of the two nodes
 	return this->getCost() < b.getCost();
 }
 
 bool Node::operator>( const Node & b) const {
-	//std::cout << "ge\n";
+	//override the > opeartor to for Node objects
+	//returns true/false depending on the costs of the two nodes
 	return this->getCost() > b.getCost();
 }
 
 bool Node::operator==( const Node & b) const {
-	//std::cout << "eq\n";
+	//override the == opeartor to for Node objects
+	//returns true/false depending on if the states are equal or not
 	return state == b.getState();
 }
